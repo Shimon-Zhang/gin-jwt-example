@@ -1,15 +1,16 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"gin-vue/model"
+	"gin-vue/router"
 )
 
 func main() {
-	r := gin.Default()
+	// 初始化数据库
+	model.InitDB()
 
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{"msg": "pong"})
-	})
+	//初始化路由
+	r := router.InitRouter()
 
 	r.Run()
 }
