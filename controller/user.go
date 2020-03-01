@@ -1,10 +1,12 @@
 package controller
 
 import (
+	"gin-vue/common"
 	"gin-vue/model"
 	"gin-vue/utils"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
+	"log"
 	"net/http"
 )
 
@@ -70,8 +72,21 @@ func UserLogin(c *gin.Context) {
 	}
 
 	// 生成token值
+	token, err := common.ReleaseToken(*user)
+	if err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"msg": "发放token失败"})
+		log.Println("token generate err:", err)
+		return
+	}
+
 	c.JSON(http.StatusOK, gin.H{
-		"msg": "登录成功",
+		"msg":   "登录成功",
+		"token": token,
 	})
 
+}
+
+func UserInfo(c *gin.Context) {
+	user, _ := c.Get("user")
+	c.JSON(http.StatusOK, gin.H{"msg": user})
 }

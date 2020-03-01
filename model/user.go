@@ -30,3 +30,9 @@ func GetUser(phone string) (*User, error) {
 	return &user, nil
 
 }
+
+func GetUserByID(id uint) *User {
+	var user User
+	DB.Where("id=?", id).First(&user)
+	return &user
+}
