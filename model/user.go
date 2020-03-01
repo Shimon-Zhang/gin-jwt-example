@@ -1,6 +1,7 @@
 package model
 
 import (
+	"errors"
 	"github.com/jinzhu/gorm"
 )
 
@@ -18,4 +19,14 @@ func IsTelephoneExist(phone string) bool {
 		return true
 	}
 	return false
+}
+
+func GetUser(phone string) (*User, error) {
+	var user User
+	DB.Where("telephone=?", phone).First(&user)
+	if user.ID == 0 {
+		return nil, errors.New("user is not exist")
+	}
+	return &user, nil
+
 }

@@ -8,5 +8,6 @@ import (
 func InitRouter() *gin.Engine {
 	r := gin.Default()
 	r.POST("/api/auth/register", controller.UserRegister)
+	r.POST("/api/auth/login", controller.UserLogin)
 	return r
 }
