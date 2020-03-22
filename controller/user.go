@@ -11,6 +11,10 @@ import (
 	"net/http"
 )
 
+func IndexPage(c *gin.Context) {
+	c.HTML(200, "index.html",nil)
+}
+
 func UserRegister(c *gin.Context) {
 	// 获取表单数据
 	name := c.PostForm("name")
